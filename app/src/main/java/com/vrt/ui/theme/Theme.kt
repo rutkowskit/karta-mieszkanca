@@ -30,5 +30,16 @@ fun MyApplicationTheme(
 ) {
   val colorScheme = DarkColorScheme
 
+  val view = androidx.compose.ui.platform.LocalView.current
+  if (!view.isInEditMode) {
+    androidx.compose.runtime.SideEffect {
+      val window = (view.context as? android.app.Activity)?.window
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        view.isForceDarkAllowed = false
+        window?.decorView?.isForceDarkAllowed = false
+      }
+    }
+  }
+
   MaterialTheme(colorScheme = colorScheme, typography = Typography, content = content)
 }
