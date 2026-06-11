@@ -1,0 +1,6 @@
+{
+  "name": "Karta Mieszkańca",
+  "description": "Mobilna Karta Mieszkańca Gorzowa Wielkopolskiego umożliwiająca lokalne zapisywanie, zarządzanie i szybkie okazywanie kodu QR i kodu kreskowego.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
