@@ -33,15 +33,15 @@ Aplikacja została zaprojektowana zgodnie z wytycznymi bezpiecznego, nowoczesneg
 
 Aplikacja opiera się na architekturze **MVVM (Model-View-ViewModel)** połączonej z wzorcem **Repository Pattern**:
 
-- **Model (`com.example.data`)**:
+- **Model (`com.vrt.data`)**:
   - `ResidentCard`: Encja bazy danych przechowująca imię, nazwisko, numer, datę ważności, ścieżkę do zdjęcia oraz flagę karty głównej.
   - `ResidentCardDao`: Interfejs transakcyjny SQLite.
   - `AppDatabase`: Singleton bazy danych Room.
 - **Data Source / Repozytorium**:
   - `ResidentCardRepository`: Pośredniczy w wymianie danych, gwarantując separację logiki od interfejsu.
-- **ViewModel (`com.example.ui`)**:
+- **ViewModel (`com.vrt.ui`)**:
   - `ResidentCardViewModel`: Reaktywnie eksponuje stany bazy za pomocą `StateFlow`. Odpowiada za operacje IO (np. bezpieczne kopiowanie bitmap zdjęć do pamięci wewnętrznej aplikacji).
-- **Widok (`com.example`)**:
+- **Widok (`com.vrt`)**:
   - `MainActivity`: Centralny, zoptymalizowany ekran Jetpack Compose, dynamicznie renderujący Dashboard, karuzelę profili, kody kreskowe QR/1D oraz formularz edycji/dodawania w nakładce modalnej (Overlay).
 
 ---

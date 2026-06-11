@@ -72,7 +72,7 @@ Aplikacja opiera się w 100% na architekturze **MVVM + Repository**:
 ## 🧩 Rozszerzanie Funkcjonalności (Jak dodać nową cechę?)
 
 ### Dodawanie nowego pola w karcie (np. PESEL lub Grupa krwi):
-1. Zmodyfikuj klasę `ResidentCard` w `/app/src/main/java/com/example/data/ResidentCard.kt` dodając nowe pole (np. `val pesel: String? = null`).
+1. Zmodyfikuj klasę `ResidentCard` w `/app/src/main/java/com/vrt/data/ResidentCard.kt` dodając nowe pole (np. `val pesel: String? = null`).
 2. Jeśli zmieniasz strukturę tabeli, pamiętaj o zwiększeniu `version` bazy danych w `AppDatabase.kt` lub skorzystaniu ze strategii `.fallbackToDestructiveMigration()` podczas prototypowania.
 3. Dodaj odpowiedni komponent `OutlinedTextField` w overlay'u formularza `CardFormOverlay` w `MainActivity.kt`.
 4. Dostosuj makietę wyświetlania `CardReplica`, aby zgrabnie wyrenderować nowe dane z zachowaniem Material Design 3.
