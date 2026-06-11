@@ -4,6 +4,8 @@ Mobilna, w pełni offline'owa aplikacja dla systemu Android, służąca do przec
 
 Aplikacja została zaprojektowana zgodnie z wytycznymi bezpiecznego, nowoczesnego programowania natywnego w języku **Kotlin** z wykorzystaniem **Jetpack Compose** oraz **Material Design 3**.
 
+Aplikacja wygenerowana w całości przez AI (`aistudio.google.com`)
+
 ---
 
 ## 📱 Główne Funkcjonalności
