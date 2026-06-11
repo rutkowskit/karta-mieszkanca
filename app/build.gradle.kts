@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
@@ -20,13 +23,28 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
+  val keystorePropertiesFile = rootProject.file("local.properties")
+  val keystoreProperties = Properties()
+  if (keystorePropertiesFile.exists()) {
+    FileInputStream(keystorePropertiesFile).use { keystoreProperties.load(it) }
+  }
+
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      val keyStorePath = System.getenv("RELEASE_STORE_FILE")
+        ?: (keystoreProperties["RELEASE_STORE_FILE"] as? String)
+        ?: "${rootDir}/my-upload-key.jks"
+      storeFile = file(keyStorePath)
+      
+      storePassword = System.getenv("RELEASE_STORE_PASSWORD")
+        ?: (keystoreProperties["RELEASE_STORE_PASSWORD"] as? String)
+
+      keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+        ?: (keystoreProperties["RELEASE_KEY_ALIAS"] as? String)
+        ?: "upload"
+
+      keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
+        ?: (keystoreProperties["RELEASE_KEY_PASSWORD"] as? String)
     }
     create("debugConfig") {
       storeFile = file("${rootDir}/debug.keystore")

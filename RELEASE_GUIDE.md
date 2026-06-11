@@ -46,42 +46,34 @@ RELEASE_KEY_PASSWORD=MojeSuperTrudneHasloDlaAlias123
 ```
 
 ### 2. Dostosowanie pliku `app/build.gradle.kts`
-Zmodyfikuj konfigurację podpisywania w module aplikacji, wczytując parametry reaktywnie:
+Zmodyfikuj konfigurację podpisywania w module aplikacji, wczytując parametry reaktywnie z obu potencjalnych źródeł (zmiennych środowiskowych systemowych lub pliku `local.properties`):
 
 ```kotlin
-import java.io.FileInputStream
-import java.util.Properties
-
 android {
     // ... nagłówek i podstawowe konfiguracje ...
 
     val keystorePropertiesFile = rootProject.file("local.properties")
-    val keystoreProperties = Properties()
+    val keystoreProperties = java.util.Properties()
     if (keystorePropertiesFile.exists()) {
-        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+        java.io.FileInputStream(keystorePropertiesFile).use { keystoreProperties.load(it) }
     }
 
     signingConfigs {
         create("release") {
-            val storePath = keystoreProperties["RELEASE_STORE_FILE"] as? String
-            val storePass = keystoreProperties["RELEASE_STORE_PASSWORD"] as? String
-            val keyAlias = keystoreProperties["RELEASE_KEY_ALIAS"] as? String
-            val keyPass = keystoreProperties["RELEASE_KEY_PASSWORD"] as? String
+            val keyStorePath = System.getenv("RELEASE_STORE_FILE")
+                ?: (keystoreProperties["RELEASE_STORE_FILE"] as? String)
+                ?: "${rootDir}/my-upload-key.jks"
+            storeFile = file(keyStorePath)
+            
+            storePassword = System.getenv("RELEASE_STORE_PASSWORD")
+                ?: (keystoreProperties["RELEASE_STORE_PASSWORD"] as? String)
 
-            if (storePath != null && File(storePath).exists()) {
-                storeFile = file(storePath)
-                storePassword = storePass
-                keyAlias = keyAlias
-                keyPassword = keyPass
-            } else {
-                // Jeśli klucz produkcyjny nie istnieje lub hasła są puste,
-                // fallback do konfiguracji kontenera deweloperskiego debug
-                val debugConfig = signingConfigs.getByName("debug")
-                storeFile = debugConfig.storeFile
-                storePassword = debugConfig.storePassword
-                keyAlias = debugConfig.keyAlias
-                keyPassword = debugConfig.keyPassword
-            }
+            keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+                ?: (keystoreProperties["RELEASE_KEY_ALIAS"] as? String)
+                ?: "upload"
+
+            keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
+                ?: (keystoreProperties["RELEASE_KEY_PASSWORD"] as? String)
         }
     }
 
