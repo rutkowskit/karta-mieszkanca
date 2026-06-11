@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:width="66dp"
-        android:height="66dp"
-        android:drawable="@drawable/app_icon_fg_1781161968134"
-        android:gravity="center" />
-</layer-list>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Stylized House Roof representing Gorzów Home/Resident -->
+    <path
+        android:pathData="M 22,48 L 54,23 L 86,48"
+        android:strokeColor="#8CC63F"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Resident Card Body with Rounded Corners -->
+    <path
+        android:pathData="M 34,45 h 40 a 6,6 0 0 1 6,6 v 22 a 6,6 0 0 1 -6,6 h -40 a 6,6 0 0 1 -6,-6 v -22 a 6,6 0 0 1 6,-6 z"
+        android:fillColor="#1AFFFFFF"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5" />
+
+    <!-- Avatar Placeholder: Head -->
+    <path
+        android:pathData="M 42,56 m -4,0 a 4,4 0 1,1 8,0 a 4,4 0 1,1 -8,0"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Avatar Placeholder: Shoulders -->
+    <path
+        android:pathData="M 34,67 a 4.5,4.5 0 0 1 8,0"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round" />
+
+    <!-- Green Microchip / Security Badge Emblem -->
+    <path
+        android:pathData="M 64,51 h 8 v 5 h -8 z"
+        android:fillColor="#8CC63F" />
+
+    <!-- Horizontal Lines representing card information -->
+    <path
+        android:pathData="M 54,58 h 18 M 54,64 h 14 M 54,70 h 8"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+
+</vector>
+
