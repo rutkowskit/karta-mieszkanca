@@ -3,6 +3,7 @@ package com.vrt
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import com.vrt.ui.theme.MyApplicationTheme
+import com.vrt.ui.components.CardReplica
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule

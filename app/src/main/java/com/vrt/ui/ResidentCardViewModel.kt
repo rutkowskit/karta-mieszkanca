@@ -2,6 +2,7 @@ package com.vrt.ui
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,10 @@ import java.io.FileOutputStream
 import java.util.UUID
 
 class ResidentCardViewModel(private val repository: ResidentCardRepository) : ViewModel() {
+
+    companion object {
+        private const val TAG = "ResidentCardViewModel"
+    }
 
     val allCards: StateFlow<List<ResidentCard>> = repository.allCards
         .stateIn(
@@ -97,7 +102,7 @@ class ResidentCardViewModel(private val repository: ResidentCardRepository) : Vi
             }
             outputFile.absolutePath
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "Failed copyImageToLocalStorage for prefix = $prefix, uri = $uri", e)
             null
         }
     }
