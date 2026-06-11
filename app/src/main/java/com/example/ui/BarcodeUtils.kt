@@ -4,6 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
+import com.google.zxing.common.BitMatrix
 
 object BarcodeUtils {
 
@@ -11,12 +14,7 @@ object BarcodeUtils {
         if (text.isEmpty()) return null
         return try {
             val bitMatrix = MultiFormatWriter().encode(text, BarcodeFormat.CODE_128, width, height)
-            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
-                }
-            }
+            val bitmap = toBitmap(bitMatrix);
             bitmap
         } catch (e: Exception) {
             e.printStackTrace()
@@ -28,16 +26,24 @@ object BarcodeUtils {
         if (text.isEmpty()) return null
         return try {
             val bitMatrix = MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, size, size)
-            val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-            for (x in 0 until size) {
-                for (y in 0 until size) {
-                    bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
-                }
-            }
-            bitmap
+            val bitmap = toBitmap(bitMatrix);
+            bitmap;
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
+    }
+
+    fun toBitmap(bitMatrix: BitMatrix?): Bitmap? {
+        if (bitMatrix == null)
+            return null
+
+            val bitmap = createBitmap(bitMatrix.width, bitMatrix.height)
+            for (x in 0 until bitmap.width) {
+                for (y in 0 until bitMatrix.height) {
+                    bitmap[x, y] = if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE
+                }
+            }
+        return bitmap;
     }
 }
